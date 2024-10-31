@@ -1,0 +1,49 @@
+<br>
+<div class="form-container  mat-elevation-z5 text-center">
+  <h1 class="text-dark">User Profile</h1>
+  <div class="profile-image">
+    <img width="100" height="100" class="margin-top mat-elevation-z1" src="./assets/images/avatar.jpg"/>
+    <button mat-mini-fab color="primary">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+
+  <!-- Ensure the form tag wraps all form controls -->
+  <form class="margin-top" [formGroup]="profileForm">
+
+    <div class="row">
+      <mat-form-field *ngIf="false">
+        <input [attr.disabled]="true" type="text" matInput formControlName="Id" placeholder="First Name" />
+        <mat-hint class="text-muted">Id</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input [attr.disabled]="true" type="text" matInput formControlName="Name" placeholder="Last Name" />
+        <mat-hint class="text-muted">Name</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <input [attr.disabled]="true" type="text" matInput formControlName="NIC" placeholder="Display Name" />
+        <mat-hint class="text-muted">NIC</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input [attr.disabled]="true" type="number" matInput formControlName="phone" placeholder="Phone" />
+        <mat-hint class="text-muted">phone</mat-hint>
+      </mat-form-field>
+     <mat-form-field>
+        <input [attr.disabled]="true" type="text" matInput formControlName="Email" placeholder="Email" />
+        <mat-hint class="text-muted">Email</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="row">
+      <input [attr.disabled]="true" type="text" matInput formControlName="address" placeholder="Address" />
+      <mat-hint class="text-muted">Address</mat-hint>
+    </mat-form-field>
+
+    <button type="submit" class="margin-top btn btn-primary" routerLink="/local-authority" mat-raised-button color="primary">&#8592; Back</button>
+
+  </form>
+</div>
+<br>

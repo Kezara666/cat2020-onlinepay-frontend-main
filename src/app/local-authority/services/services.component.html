@@ -1,0 +1,224 @@
+<div class="container-xxl">
+  <br>
+  <mat-horizontal-stepper linear #stepper labelPosition="bottom" [linear]="false" [selectedIndex]="1">
+    <mat-step>
+      <ng-template matStepLabel><span class="mat-step">Select Local Office</span></ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel><span class="mat-step">Find Registered Services</span></ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel><span class="mat-step">Make Payment</span></ng-template>
+    </mat-step>
+  </mat-horizontal-stepper>
+  <br>
+
+  <!-- <mat-accordion *ngIf="showbookingssection" class="example-headers-align" multi>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>source-environment</mat-icon>
+          <strong>&nbsp;Booking</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-booking></app-booking> 
+      <div class="stepper-buttons">
+        <button mat-flat-button color="primary" (click)="prevStep()">
+          &#8592; Back
+        </button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  
+
+  <br> -->
+
+  <mat-accordion *ngIf="showAssessmentTable" class="example-headers-align" multi>
+    <!-- <mat-accordion *ngIf="showAssessmentTable && !(createdBy == '0' && updatedBy == '0')" class="example-headers-align" multi> -->
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>source-environment</mat-icon>
+          <strong>&nbsp;Assessments</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-table [dataSource]="secondStepDataSource" class="mat-elevation-z8 ">
+        <!-- Column definitions for Step 2 -->
+        <ng-container matColumnDef="column1">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Ownership</b></mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Street"
+                    *matCellDef="let element"> <span *ngIf="ptnrid==element.partnerId">Own</span> <span *ngIf="ptnrid!=element.partnerId">Third Party</span> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column2">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Assessment No</b>
+          </mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Assessment No"
+                    *matCellDef="let element">{{ element.assessmentNo}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column3">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Owner</b></mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Owner" *matCellDef="let element">{{element.assessmentTempPartner?.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column4">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Property Type</b>
+          </mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Property Type"
+                    *matCellDef="let element">{{ element.assessmentPropertyType?.propertyTypeName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column5">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Street</b></mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Street"
+                    *matCellDef="let element">{{ element.street?.streetName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column6">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Total Payable (Rs.)</b>
+          </mat-header-cell>
+          <mat-cell class="mat-cell pr-3" data-label="Annual Amount" mat-cell *matCellDef="let element">
+            LKR. {{element.payableBalance?.total |number:'1.2-2' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column7">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Action</b></mat-header-cell>
+          <mat-cell data-label="Pay" class="mat-cell cell-pay" mat-cell *matCellDef="let element">
+            <div *ngIf="element!.partnerId>0">
+            <button class="btn btn-success" (click)="onPay(element)">
+              <i class="fa-solid fa-money-check"></i> <span>Pay</span></button>
+            </div>
+            <div *ngIf="element!.partnerId <= 0" style="color: orange;">
+              Owner Required!
+            </div>
+          </mat-cell>
+        </ng-container>
+        
+        Row content for Step 2
+        <mat-header-row mat-header-row *matHeaderRowDef="displayedColumnsStep2"></mat-header-row>
+        <mat-row mat-row *matRowDef="let row; columns: displayedColumnsStep2;"></mat-row>
+      </mat-table>
+
+      <div class="stepper-buttons">
+        <button mat-flat-button color="primary" (click)="prevStep()">
+          &#8592; Back
+        </button>
+        <!--    <button mat-flat-button color="primary" (click)="nextStep()"  >-->
+        <!--      Next &rarr;-->
+        <!--    </button>-->
+      </div>
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
+
+  <br>
+  <mat-accordion *ngIf="showWaterTable" class="example-headers-align" multi>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>source-environment</mat-icon>
+          <strong>&nbsp;Water</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+      <mat-table [dataSource]="waterDataSource" class="mat-elevation-z8 ">
+
+        <!-- Column definitions for Step 2 -->
+        <ng-container matColumnDef="column1">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Connection No</b>
+          </mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Assessment No"
+                    *matCellDef="let element">{{ element.connectionId}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column3">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Billing Id</b></mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Property Type"
+                    *matCellDef="let element">{{ element.billingId }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column2">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Owner</b></mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Owner" *matCellDef="let element">{{owner}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column4">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Month</b></mat-header-cell>
+          <mat-cell mat-cell class="mat-cell" data-label="Street"
+                    *matCellDef="let element">{{ element.balances[0]?.month}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column5">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>This Month Reading</b>
+          </mat-header-cell>
+          <mat-cell class="mat-cell pr-3" data-label="Annual Amount" mat-cell
+                    *matCellDef="let element">{{element.balances[0]?.thisMonthMeterReading}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="column6">
+          <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>Action</b></mat-header-cell>
+          <mat-cell data-label="Pay" class="mat-cell cell-pay" mat-cell *matCellDef="let element">
+            <button class="btn btn-success"  [routerLink] = "['/paybillview',element.subRoad.waterProject
+            .officeId,element.connectionId]">
+             
+              <i class="fa-solid fa-money-check"></i>
+            
+          <span>Pay</span> </button>
+              
+          </mat-cell>
+        </ng-container>
+
+        Row content for Step 2
+        <mat-header-row mat-header-row *matHeaderRowDef="displayedColumnsWater"></mat-header-row>
+        <mat-row mat-row *matRowDef="let row; columns: displayedColumnsWater;"></mat-row>
+      </mat-table>
+
+
+      <div class="stepper-buttons">
+        <button mat-flat-button color="primary" (click)="prevStep()">
+          &#8592; Back
+        </button>
+        <!--    <button mat-flat-button color="primary" (click)="nextStep()"  >-->
+        <!--      Next &rarr;-->
+        <!--    </button>-->
+      </div>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+  <br>
+  <mat-accordion *ngIf="true" class="example-headers-align" multi>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>source-environment</mat-icon>
+          <strong>&nbsp;Other Payments</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+<!--      <button class="btn btn-success">Make Payment</button>-->
+        <app-other-payment></app-other-payment>
+
+
+      <div class="stepper-buttons">
+        <button mat-flat-button color="primary" (click)="prevStep()">
+          &#8592; Back
+        </button>
+        <!--    <button mat-flat-button color="primary" (click)="nextStep()"  >-->
+        <!--      Next &rarr;-->
+        <!--    </button>-->
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+</div>
+
+<br>
+
+
+

@@ -1,0 +1,730 @@
+
+
+<div *ngIf="sessionAvailable" class="container-md">
+    <br>
+  <mat-horizontal-stepper linear #stepper labelPosition="bottom" [linear]="false" [selectedIndex]="2">
+    <mat-step><ng-template  matStepLabel><span class="mat-step">Select Local Office</span></ng-template></mat-step>
+    <mat-step><ng-template  matStepLabel><span class="mat-step">Find Registered Services</span></ng-template></mat-step>
+    <mat-step><ng-template  matStepLabel><span class="mat-step">Make Payment</span></ng-template></mat-step>
+  </mat-horizontal-stepper>
+
+    <br>
+    <div class="card card-info ass-card">
+        <div class="card-header">
+            <h3 class="card-title">Assessment Order Detail</h3>
+
+
+            <!--    <div class="card-tools">-->
+            <!--      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">-->
+            <!--        <i class="fas fa-minus"></i>-->
+            <!--      </button>-->
+            <!--    </div>-->
+        </div>
+
+
+        <div class="card-body">
+            <div id="year-quarter" class="card">
+                <div class="p-2 d-flex justify-content-around font-weight-bold">
+                    <h3 class="font-weight-bold">Year : {{assessment.assessmentBalance?.year}}</h3>
+                    <h3 class="font-weight-bold">Current Quarter : {{assessment.assessmentBalance?.currentQuarter}}</h3>
+                    <h3 class="font-weight-bold">Month : {{datePipe.transform(currentSession.startAt, 'MM')}}</h3>
+                </div>
+            </div>
+
+            <div class="mt-2 main-card">
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-lg-12 ">
+
+
+                        <div class="card bg-teal-100">
+                            <div class="card-body">
+                                <!--              <h5 class="card-title">Property Information</h5>-->
+
+
+                                <table class="table table-borderless " id="table-borderless">
+                                    <colgroup>
+                                        <col style="width: 45%;">
+                                        <col style="width: 55%;">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                      d="M5 20v-8H2l10-9l4 3.6V4h3v5.3l3 2.7h-3v8h-5v-6h-4v6zm5-9.975h4q0-.8-.6-1.313T12 8.2q-.8 0-1.4.513t-.6 1.312"/>
+                                            </svg>
+                                            Property Information
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td class="pl-3">Assessment No.:</td>
+                                        <td style="text-align: right;" class="pr-2">{{assessment.assessmentNo}}</td>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <!--      <tr>-->
+                                    <!--        <td class="font-weight-bold pl-4">Ward</td>-->
+                                    <!--        <td class="pr-4" >Lane</td>-->
+                                    <!--      </tr>-->
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Street</td>
+                                        <td class="pr-2">{{assessment.street?.streetName}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Property Nature</td>
+                                        <td class="pr-2"> {{assessment.assessmentPropertyType?.propertyTypeName}}
+                                            <span>{{assessment.assessmentPropertyType?.quarterRate}}%</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Owner</td>
+                                        <td class="pr-2"> <span *ngIf="assessment!.partner!=null">{{assessment!.partner!.name}}</span> <span *ngIf="assessment!.partner==null">{{assessment!.assessmentTempPartner!.name}}</span> </td>
+                                        <!-- <td class="pr-2">{{owner}}</td> -->
+                                    </tr>
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Allocation</td>
+                                        <td class="pr-2">
+                                            LKR {{assessment.allocation?.allocationAmount | number:'1.2-2'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Annual Amount</td>
+                                        <td class="pr-2">
+                                            LKR {{assessment.assessmentBalance?.annualAmount | number:'1.2-2'}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                      d="M3 22V2l1.5 1.5L6 2l1.5 1.5L9 2l1.5 1.5L12 2l1.5 1.5L15 2l1.5 1.5L18 2l1.5 1.5L21 2v20l-1.5-1.5L18 22l-1.5-1.5L15 22l-1.5-1.5L12 22l-1.5-1.5L9 22l-1.5-1.5L6 22l-1.5-1.5zm3-5h12v-2H6zm0-4h12v-2H6zm0-4h12V7H6z"/>
+                                            </svg>
+                                            Summary
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">From Over Payment</td>
+                                        <td class="pr-2">
+                                            LKR {{perCalculatorBalance.excessPayment | number:'1.2-2'}}</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Last Year Warrant</td>
+                                        <td class="pr-2">LKR {{perCalculatorBalance.lyWarrant | number:'1.2-2'}}</td>
+                                    </tr>
+                                    <!-- Row 2 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Last Year Arrears</td>
+                                        <td class="pr-2">LKR {{perCalculatorBalance.lyArrears | number:'1.2-2'}}</td>
+
+                                    </tr>
+                                    <!-- Row 3 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">This Year Warrant</td>
+                                        <td class="pr-2">LKR {{perCalculatorBalance.tyWarrant| number:'1.2-2'}}</td>
+
+                                    </tr>
+                                    <!-- Row 4 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">This Year Arrears</td>
+                                        <td class="pr-2">LKR {{perCalculatorBalance.tyArrears| number:'1.2-2'}}</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 1
+                                            <!--                    <span class="mx-4">{{assessment.assessmentBalance?.q1?.amount| number:'1.2-2'}}</span>-->
+                                        </td>
+                                        <td class="px-1">
+                                            <!--                    <mat-checkbox [checked]="checkboxes[0].checked" (change)="updateCheckbox(0)"-->
+                                            <!--                                  [disabled]="checkboxes[0].disabled"></mat-checkbox> -->
+                                            LKR {{payable.q1| number:'1.2-2'}}
+
+                                        </td>
+
+
+                                    </tr>
+                                    <!-- Row 6 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 2
+                                            <!--                    <span class="mx-4">{{assessment.assessmentBalance?.q2?.amount| number:'1.2-2'}}</span>-->
+                                        </td>
+                                        <td class="px-1">
+                                            <!--                    <mat-checkbox [checked]="checkboxes[1].checked" (change)="updateCheckbox(1)"-->
+                                            <!--                                  [disabled]="checkboxes[1].disabled"></mat-checkbox>-->
+                                            LKR {{payable.q2| number:'1.2-2'}}
+                                        </td>
+
+                                    </tr>
+                                    <!-- Row 7 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 3
+                                            <!--                    <span class="mx-4">{{assessment.assessmentBalance?.q3?.amount| number:'1.2-2'}}</span>-->
+                                        </td>
+                                        <td class="px-1">
+                                            <!--                    <mat-checkbox [checked]="checkboxes[2].checked" (change)="updateCheckbox(2)"-->
+                                            <!--                                  [disabled]="checkboxes[2].disabled"></mat-checkbox>-->
+                                            LKR {{payable.q3| number:'1.2-2'}}
+                                        </td>
+
+                                    </tr>
+                                    <!-- Row 8 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 4
+                                            <!--                    <span class="mx-4 ">{{assessment.assessmentBalance?.q4?.amount | number:'1.2-2'}}</span>-->
+                                        </td>
+                                        <td class="px-1">
+                                            <!--                    <mat-checkbox [checked]="checkboxes[3].checked" (change)="updateCheckbox(3)"-->
+                                            <!--                                  [disabled]="checkboxes[3].disabled"></mat-checkbox>-->
+                                            LKR {{payable.q4| number:'1.2-2'}}
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="special-row">
+                                        <td class="font-weight-bold pl-3"><b>Calculated Total</b></td>
+                                        <td class="font-weight-bold pr-2"><b>{{payable.total| number:'1.2-2'}}</b></td>
+                                    </tr>
+
+                                    <tr></tr>
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3 text-primary"><b>Enter payment amount here</b>
+                                        </td>
+                                        <td>
+                                            <form>
+                                                <mat-form-field id="amount">
+                                                    <mat-label>Amount</mat-label>
+                                                    <input  #inputAmount matInput required [formControl]="payNowFromControl"
+                                                           [readonly]="isInputDisabled" (keyup)="onTotalChange($event)" [min]="min" type="number" (wheel)="onWheel($event)">
+
+                                                    <mat-error *ngIf="payNowFromControl.hasError('required')">
+                                                        Amount is <strong>required</strong>
+                                                    </mat-error>
+
+                                                </mat-form-field>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="inputTotal > 0">
+                                        <td class="font-weight-bold pl-3 text-primary"><b>Discount</b></td>
+                                        <td class="font-weight-bold pl-3 text-primary"><b>LKR
+                                            -{{discount.total| number:'1.2-2'}}</b></td>
+                                    </tr>
+
+<!--                                    <tr *ngIf="inputTotal > 0">-->
+<!--                                        <td class="font-weight-bold pl-3 text-danger"><b>Service charges</b></td>-->
+<!--                                        <td class="font-weight-bold pl-3 text-danger"><b>+0.9%</b></td>-->
+<!--                                    </tr> -->
+                                    <tr *ngIf="inputTotal > 0">
+                                        <td class="font-weight-bold pl-3 text-danger"><b>Bank charges</b></td>
+                                        <td class="font-weight-bold pl-3 text-danger"><b> LKR +{{newServiceCharges}}</b></td>
+                                    </tr>
+<!--                                   <tr *ngIf="inputTotal > 0">-->
+<!--&lt;!&ndash;                                        <td class="font-weight-bold pl-3 text-danger"><b>Service charges</b></td>&ndash;&gt;-->
+<!--                                     <td></td>-->
+<!--                                        <td class="font-weight-bold pl-3 text-danger"><b>LKR {{newServiceCharges}}</b></td>-->
+<!--                                    </tr>-->
+
+                                    <tr *ngIf="inputTotal > 0" class="special-row ">
+                                        <td class="font-weight-bold pl-3 text-success"><b>Total</b></td>
+                                        <td class="font-weight-bold pr-2 text-success">
+                                            <b>LKR {{grandTotal| number:'1.2-2'}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <button class="btn btn-success pay-button   text-light "
+                                                    (click)="closeSection(inputTotal)"
+                                                    [disabled]="inputTotal== 0 || inputTotal==undefined"
+                                            > <i class="fa-solid fa-money-check"></i>
+                                                Pay now
+
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3"></td>
+                                        <td class="pr-2"></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="false" class="card bg-gray-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Payment Calculator</h5>
+
+
+                                <table class="table table-borderless " id="">
+                                    <colgroup>
+                                        <col style="width: 60%;">
+                                        <col style="width: 40%;">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="pl-3"></th>
+                                        <th class="pr-2"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">From Over Payment</td>
+                                        <td class="pr-2">{{perCalculatorBalance.excessPayment | number:'1.2-2'}}</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Last Year Warrant</td>
+                                        <td class="pr-2">{{perCalculatorBalance.lyWarrant | number:'1.2-2'}}</td>
+                                    </tr>
+                                    <!-- Row 2 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">Last Year Arrears</td>
+                                        <td class="pr-2">{{perCalculatorBalance.lyArrears | number:'1.2-2'}}</td>
+
+                                    </tr>
+                                    <!-- Row 3 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">This Year Warrant</td>
+                                        <td class="pr-2">{{perCalculatorBalance.tyWarrant| number:'1.2-2'}}</td>
+
+                                    </tr>
+                                    <!-- Row 4 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">This Year Arrears</td>
+                                        <td class="pr-2">{{perCalculatorBalance.tyArrears| number:'1.2-2'}}</td>
+
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                                <table class="table table-borderless " id="">
+                                    <colgroup>
+                                        <col style="width: 40%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 50%;">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="pl-3"></th>
+                                        <th class=""></th>
+                                        <th class="pr-2"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Row 5 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 1
+                                            <span class="mx-4">{{assessment.assessmentBalance?.q1?.amount| number:'1.2-2'}}</span>
+                                        </td>
+                                        <td class="px-1">
+                                            <mat-checkbox [checked]="checkboxes[0].checked" (change)="updateCheckbox(0)"
+                                                          [disabled]="checkboxes[0].disabled"></mat-checkbox>
+
+                                        </td>
+
+                                        <td class="pr-2">{{perCalculatorBalance.q1| number:'1.2-2'}}</td>
+
+                                    </tr>
+                                    <!-- Row 6 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 2
+                                            <span class="mx-4">{{assessment.assessmentBalance?.q2?.amount| number:'1.2-2'}}</span>
+                                        </td>
+                                        <td class="px-1">
+                                            <mat-checkbox [checked]="checkboxes[1].checked" (change)="updateCheckbox(1)"
+                                                          [disabled]="checkboxes[1].disabled"></mat-checkbox>
+                                        </td>
+                                        <td class="pr-2">{{perCalculatorBalance.q2| number:'1.2-2'}}</td>
+
+                                    </tr>
+                                    <!-- Row 7 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 3
+                                            <span class="mx-4">{{assessment.assessmentBalance?.q3?.amount| number:'1.2-2'}}</span>
+                                        </td>
+                                        <td class="px-1">
+                                            <mat-checkbox [checked]="checkboxes[2].checked" (change)="updateCheckbox(2)"
+                                                          [disabled]="checkboxes[2].disabled"></mat-checkbox>
+                                        </td>
+                                        <td class="pr-2">{{perCalculatorBalance.q3| number:'1.2-2'}}</td>
+
+                                    </tr>
+                                    <!-- Row 8 -->
+                                    <tr>
+                                        <td class="font-weight-bold pl-3">
+                                            Quarter 4
+                                            <span class="mx-4 ">{{assessment.assessmentBalance?.q4?.amount | number:'1.2-2'}}</span>
+                                        </td>
+                                        <td class="px-1">
+                                            <mat-checkbox [checked]="checkboxes[3].checked" (change)="updateCheckbox(3)"
+                                                          [disabled]="checkboxes[3].disabled"></mat-checkbox>
+                                        </td>
+                                        <td class="pr-2">{{perCalculatorBalance.q4| number:'1.2-2'}}</td>
+                                    </tr>
+                                    <!-- Special Row -->
+                                    <tr class="special-row">
+                                        <td class="font-weight-bold pl-3">Calculated Total</td>
+                                        <td></td>
+                                        <td class="font-weight-bold pr-2">{{perCalculatorBalance.total| number:'1.2-2'}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--        <div class="col-lg-1"></div>-->
+                    <!-- Right Column -->
+                    <div *ngIf="false" class="col-lg-8">
+                        <!-- Top Row in the Right Column -->
+                        <div class="card bg-gray-100">
+                            <div class="card-body">
+
+                                <div class="row card-body pt-0 pl-1">
+                                    <h5 class="card-title">Receipt Summary</h5>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <table class="">
+                                            <col style="width: 22%;">
+                                            <col style="width: 16%;">
+                                            <col style="width: 12%;">
+                                            <col style="width: 12%;">
+                                            <col style="width: 16%;">
+                                            <col style="width: 16%;">
+                                            <!--                    <col style="width: 11%;">-->
+                                            <thead>
+                                            <tr>
+                                                <th class="">Invoice Description</th>
+                                                <th class="">Gross Amount</th>
+                                                <th class="">Discount <span
+                                                        class="text-success text-bold">{{discountRate ? discountRate * 100 + '%' : ''}}</span>
+                                                </th>
+                                                <th class="">Deduction Amount</th>
+                                                <th class="">Paying Amount</th>
+                                                <th class="">Remaining Balance</th>
+                                                <!--                      <th class="">Over Payment</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <!-- Row 1 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">Last Year Warrant</td>
+                                                <td class="pr-3">{{payable.lyWarrant | number:'1.2-2'}}</td>
+                                                <td class="pr-3">-</td>
+                                                <td class="pr-3">{{deduction.lyWarrant | number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.lyWarrant | number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.lyWarrant | number:'1.2-2'}}</td>
+                                                <!--                      <td class="pr-3"></td>-->
+                                            </tr>
+                                            <!-- Row 2 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">Last Year Arrears</td>
+                                                <td class="pr-3">{{payable.lyArrears | number:'1.2-2'}}</td>
+                                                <td class="pr-3">-</td>
+                                                <td class="pr-3">{{deduction.lyArrears| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.lyArrears | number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.lyArrears| number:'1.2-2'}}</td>
+                                                <!--                      <td class="pr-3"></td>-->
+                                            </tr>
+                                            <!-- Row 3 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">This Year Warrant</td>
+                                                <td class="pr-3">{{payable.tyWarrant | number:'1.2-2'}}</td>
+                                                <td class="pr-3">-</td>
+                                                <td class="pr-3">{{deduction.tyWarrant| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.tyWarrant| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.tyWarrant| number:'1.2-2'}}</td>
+                                                <!--                      <td class="pr-3"></td>-->
+                                            </tr>
+                                            <!-- Row 4 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">This Year Arrears</td>
+                                                <td class="pr-3">{{payable.tyArrears | number:'1.2-2'}}</td>
+                                                <td class="pr-3">-</td>
+                                                <td class="pr-3">{{deduction.tyArrears| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.tyArrears| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.tyArrears | number:'1.2-2'}}</td>
+                                                <!--                      <td class="pr-3"></td>-->
+                                            </tr>
+                                            <!-- Row 5 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">
+                                                    Q1
+                                                    <span class="pl-3">
+                        <ng-container
+                                *ngIf="assessment.assessmentBalance?.q1?.isOver && assessment.assessmentBalance?.q1?.isCompleted; else q1TimesCircle">
+                          <i class="fas fa-check-circle text-gray fa-lg"></i>
+                        </ng-container>
+                        <ng-template #q1TimesCircle>
+                          <ng-container *ngIf="assessment.assessmentBalance?.q1?.isOver; else q1colorIcon">
+                            <i class="fas fa-times-circle text-gray fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q1colorIcon>
+                          <ng-container
+                                  *ngIf="!assessment.assessmentBalance?.q1?.isOver && nextBalance.q1 === 0; else q1redTimesCircle">
+                            <i class="fas fa-check-circle text-success fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q1redTimesCircle>
+                          <i class="fas fa-times-circle text-danger fa-lg"></i>
+                        </ng-template>
+                          </span>
+                                                </td>
+
+                                                <td class="pr-3">{{payable.q1 | number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{discount.q1| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{deduction.q1| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.q1| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.q1 | number:'1.2-2'}}</td>
+                                                <!--                      <td class="pr-3"></td>-->
+                                            </tr>
+                                            <!-- Row 6 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">
+                                                    Q2
+                                                    <span class="pl-3">
+                        <ng-container
+                                *ngIf="assessment.assessmentBalance?.q2?.isOver && assessment.assessmentBalance?.q2?.isCompleted; else q2TimesCircle">
+                          <i class="fas fa-check-circle text-gray fa-lg"></i>
+                        </ng-container>
+                        <ng-template #q2TimesCircle>
+                          <ng-container *ngIf="assessment.assessmentBalance?.q2?.isOver; else q2colorIcon">
+                            <i class="fas fa-times-circle text-gray fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q2colorIcon>
+                          <ng-container
+                                  *ngIf="!assessment.assessmentBalance?.q2?.isOver && nextBalance.q2 === 0; else q2redTimesCircle">
+                            <i class="fas fa-check-circle text-success fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q2redTimesCircle>
+                          <i class="fas fa-times-circle text-danger fa-lg"></i>
+                        </ng-template>
+                          </span>
+                                                </td>
+                                                <td class="pr-3">{{payable.q2| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{discount.q2| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{deduction.q2| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.q2| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.q2 | number:'1.2-2' }}</td>
+                                                <!--                      <td class="pr-3"></td>-->
+                                            </tr>
+                                            <!-- Row 7 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">
+                                                    Q3
+                                                    <span class="pl-3">
+                        <ng-container
+                                *ngIf="assessment.assessmentBalance?.q3?.isOver && assessment.assessmentBalance?.q3?.isCompleted; else q3TimesCircle">
+                          <i class="fas fa-check-circle text-gray fa-lg"></i>
+                        </ng-container>
+                        <ng-template #q3TimesCircle>
+                          <ng-container *ngIf="assessment.assessmentBalance?.q3?.isOver; else q3colorIcon">
+                            <i class="fas fa-times-circle text-gray fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q3colorIcon>
+                          <ng-container
+                                  *ngIf="!assessment.assessmentBalance?.q3?.isOver && nextBalance.q3 === 0; else q3redTimesCircle">
+                            <i class="fas fa-check-circle text-success fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q3redTimesCircle>
+                          <i class="fas fa-times-circle text-danger fa-lg"></i>
+                        </ng-template>
+                          </span>
+                                                </td>
+                                                <td class="pr-3">{{payable.q3| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{discount.q3| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{deduction.q3| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.q3| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.q3 | number:'1.2-2' }}</td>
+                                                <!--                      <td class="pr-3"></td>-->
+                                            </tr>
+                                            <!-- Row 8 -->
+                                            <tr>
+                                                <td class="font-weight-bold pl-4">
+                                                    Q4
+                                                    <span class="pl-3">
+                        <ng-container
+                                *ngIf="assessment.assessmentBalance?.q4?.isOver && assessment.assessmentBalance?.q4?.isCompleted; else q4TimesCircle">
+                          <i class="fas fa-check-circle text-gray fa-lg"></i>
+                        </ng-container>
+                        <ng-template #q4TimesCircle>
+                          <ng-container *ngIf="assessment.assessmentBalance?.q4?.isOver; else q4colorIcon">
+                            <i class="fas fa-times-circle text-gray fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q4colorIcon>
+                          <ng-container
+                                  *ngIf="!assessment.assessmentBalance?.q4?.isOver && nextBalance.q4 === 0; else q4redTimesCircle">
+                            <i class="fas fa-check-circle text-success fa-lg"></i>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #q4redTimesCircle>
+                          <i class="fas fa-times-circle text-danger fa-lg"></i>
+                        </ng-template>
+                          </span>
+                                                </td>
+                                                <td class="pr-3">{{payable.q4| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{discount.q4| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{deduction.q4| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.q4| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.q4 | number:'1.2-2' }}</td>
+                                                <!--                      <td></td>-->
+                                            </tr>
+                                            <!-- Special Row -->
+                                            <tr class="special-row">
+                                                <td class="font-weight-bold pl-4">Total</td>
+                                                <td class="pr-3">{{payable.total| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{discount.total| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{deduction.total| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{payingBalance.total| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{nextBalance.total| number:'1.2-2'}}</td>
+                                                <!--                      <td class="pr-3">{{payingBalance.overPayment| number:'1.2-2'}}</td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <table class="w-100">
+                                            <col style="width: 22%;">
+                                            <col style="width: 16%;">
+                                            <col style="width: 12%;">
+                                            <col style="width: 12%;">
+                                            <col style="width: 16%;">
+                                            <col style="width: 16%;">
+                                            <thead>
+                                            <tr>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="special-row">
+                                                <td class="font-weight-bold pl-4" colspan="4">Over Payments</td>
+
+                                                <td class="pr-3">{{payingBalance.overPayment| number:'1.2-2'}}</td>
+                                                <td class="pr-3">{{assessment.assessmentBalance?.overPayment| number:'1.2-2'}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <!-- Bottom Row in the Right Column -->
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row">
+
+                                            <div class="col-12">
+                                                <mat-radio-group *ngIf="false" [(ngModel)]="selectedPaymentOption">
+                                                    <mat-radio-button *ngFor="let option of paymentOptions"
+                                                                      [value]="option.value">
+                                                        {{ option.label }}
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                            <div class="col-12">
+                                                <div *ngIf="selectedPaymentOption === 2">
+                                                    <form [formGroup]="chequeInfoForm" class="row">
+                                                        <div class="col-4">
+                                                            <mat-form-field>
+                                                                <mat-label>Cheque Number</mat-label>
+                                                                <input matInput id="chequeNumber"
+                                                                       formControlName="chequeNumber"
+                                                                       placeholder="Enter cheque number">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <mat-form-field>
+                                                                <mat-label>Cheque Date</mat-label>
+                                                                <input matInput [matDatepicker]="chequeDatePicker"
+                                                                       id="chequeDate"
+                                                                       formControlName="chequeDate"
+                                                                       placeholder="Choose cheque date">
+                                                                <mat-datepicker-toggle matSuffix
+                                                                                       [for]="chequeDatePicker"></mat-datepicker-toggle>
+                                                                <mat-datepicker #chequeDatePicker></mat-datepicker>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <mat-form-field>
+                                                                <mat-label>Bank Name</mat-label>
+                                                                <input matInput id="bankName" formControlName="bankName"
+                                                                       placeholder="Enter bank name">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4 d-flex flex-column">
+
+                                            <mat-form-field appearance="outline" class="col-4">
+                                                <mat-label>Payment</mat-label>
+                                                <!--              <mat-prefix>Rs </mat-prefix>-->
+                                                <input matInput type="number" [(ngModel)]="inputTotal"
+                                                       (ngModelChange)="onTotalChange($event)" appearance="fill"
+                                                       required [min]="min">
+                                            </mat-form-field>
+                                            <button class="btn bg-primary mx-5  text-light col-3 pay-button">
+                                                <span>Pay Now</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24">
+                                                    <path fill="#fff"
+                                                          d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="stepper-buttons">
+
+
+                <button *ngIf="true" mat-flat-button color="primary" class="mx-1"
+                        appPreventDoubleClick (click)="prevStep()">
+                    &#8592; Back
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br>

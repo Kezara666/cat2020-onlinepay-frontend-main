@@ -1,0 +1,44 @@
+
+
+mat-horizontal-stepper span{
+  color: #0d0c22;
+}
+
+th{
+  background-color: #c6c7c8 !important;
+  color: #0d0c22;
+}
+
+td{
+  white-space: nowrap;
+  color: #0d0c22;
+}
+
+.mat-step {
+  white-space: pre-wrap;
+}
+td, th{
+  white-space: pre-wrap;
+  //text-align: center;
+}
+.view{
+  white-space: nowrap!important;
+}
+td > button > span{
+  padding-left: 5px;
+}
+
+@media  (max-width: 720px) {
+
+
+  td, .mat-step, td > button > span{
+    font-size: 12px!important;
+  }
+}
+
+@media (max-width: 576px) {
+  .mat-step {
+    font-size: 8px !important;
+  }
+}
+

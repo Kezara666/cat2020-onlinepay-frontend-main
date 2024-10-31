@@ -1,0 +1,91 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Please Wait...</p>
+</ngx-spinner>
+
+<br>
+
+<div *ngIf="success" class="outer">
+  <div class="container text-center">
+    <div class="printer-top"></div>
+
+    <div class="paper-container">
+      <div class="printer-bottom"></div>
+
+      <div class="paper">
+        <div class="main-contents">
+          <div class="success-icon"><i class="fa-regular fa-circle-check"></i></div>
+          <div class="success-title">
+            Thank you for your payment!
+          </div>
+          <div class="success-description">
+            You will shortly receive an email of your payment.
+          </div>
+          <div class="order-details">
+            <div class="order-number-label">Transaction ID</div>
+            <div class="order-number">{{transactionId}}</div>
+            <div class="complement">Thank You!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button (click)="back()" class="btn btn-primary" >&#8592; Back</button>
+  </div>
+</div>
+
+
+
+
+
+<main *ngIf="errMessage">
+  <div class="title">Submit your complaint</div>
+  <div class="title-info">We'll get back to you soon!</div>
+
+  <form action="" method="" class="form">
+    <div class="input-group">
+      <input type="text" disabled name="first_name" id="first-name" placeholder="Transaction ID" value="{{transactionId}}">
+      <label for="first-name">Transaction ID</label>
+    </div>
+
+<!--    <div class="input-group">-->
+<!--      <input type="text" name="last_name" id="Name" placeholder="Name">-->
+<!--      <label for="Name">Name</label>-->
+<!--    </div>-->
+
+<!--    <div class="input-group">-->
+<!--      <input type="text" name="phone" id="phone" placeholder="Phone">-->
+<!--      <label for="phone">Phone</label>-->
+<!--    </div>-->
+
+
+
+<!--    <div class="input-group">-->
+<!--      <input type="email" name="e-mail" id="e-mail" placeholder="e-mail">-->
+<!--      <label for="e-mail">e-mail</label>-->
+<!--    </div>-->
+
+    <div class="input-group">
+      <mat-select placeholder="Reason for dispute" value="1"
+                  (selectionChange)="onDisputeSelectionChange($event)" >
+        <mat-option *ngFor="let dispute of dispute" [value]="dispute.description">
+          {{dispute.description}}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <div class="textarea-group">
+      <textarea [(ngModel)]="disputeMessage" name="message" id="message" rows="5" placeholder="Message"></textarea>
+      <label for="message">Message</label>
+    </div>
+
+    <div class="button-div">
+      <button type="button" (click)="sendErrorMessage()" >Send</button>
+    </div>
+  </form>
+</main>
+
+<br>

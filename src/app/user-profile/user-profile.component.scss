@@ -1,0 +1,51 @@
+.form-container {
+  z-index: -1000;
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.profile-image {
+  position: relative;
+  width: 120px;
+  margin: auto;
+}
+
+.profile-image > img {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 120px;
+  height: 120px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image > button {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.mat-form-field {
+  flex: 1;
+}
+
+.mat-form-field:last-child {
+  margin-bottom: 16px;
+}
+
+button[type="submit"] {
+  display: block;
+  margin: auto;
+  margin-top: 16px;
+}
+
+

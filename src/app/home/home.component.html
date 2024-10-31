@@ -1,0 +1,427 @@
+<div class="#outer-div ">
+
+
+  <!--  <div class="rounded-corner">-->
+  <!--    <img src="../../assets/images/android-chrome-192x192.png" alt="Logo" width="100" height="50">-->
+  <!--  </div>-->
+
+
+  <div class="split-container d-flex  ">
+
+    <div id="left-container" class="container">
+      <div class="text-center"><img src="./assets/images/govlogo-removebg-preview.png" width="30%"></div>
+      <p><b>Welcome to CAT20 <br> Local Government Online Payment System</b></p>
+      <ul>
+       <br>
+        <li><i class="fa-solid fa-check"></i> You are only required to provide your Mobile number to Login to the system.
+        </li>
+        <li><i class="fa-solid fa-check"></i> You can pay any of your due payments through this service for the payment
+          types that do not require any supplementary documents.
+        </li>
+      </ul>
+      <div style="text-align: center;"><img src="./assets/images/cat20visamasterbanner.png" alt="" width="40%">
+      </div>
+      <br>
+      <br>
+      <div style="text-align: center;"><b>Ministry of Public Administration, Home Affairs,
+          <br>
+          Provincial Councils and Local
+          Government</b></div>
+          
+      <div style="text-align: center;"><img src="./assets/images/UNDPBanner-removebg-preview.png" alt="" width="60%">
+      </div>
+
+       
+    </div>
+
+
+    <div class="  text-center container-fluid" id="right-container">
+      <div class="container-fluid">
+        <!--        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="nextStep()">-->
+
+        <div *ngIf="currentStep === 5">
+          <h1>Welcome Back !</h1>
+          <h3>Please find your account to continue....</h3>
+
+          <div class="form-control">
+            <!--              <label class="mb-2 text-muted" for="nic">NIC Number: </label>-->
+
+            <input matInput type="text" class="form-control" formControlName="nic" id="nic"
+              [ngClass]="{'is-invalid isInvalid': submitted && loginForm1.controls['nic'].errors}"
+              placeholder="Ex: 895642859V" />
+            <div *ngIf="submitted && loginForm1.controls['nic'].errors || partnerNotPreset" class="text-danger ">
+              <div *ngIf="submitted && loginForm1.controls['nic'].errors?.['required'] || partnerNotPreset"
+                class="text-danger">
+                Please provide a <strong>valid</strong> NIC number.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <!--              <label  class="mb-2 text-muted" for="mobileNo">Mobile Number: </label>-->
+            <input type="text" class="form-control" formControlName="mobileNo" id="mobileNo"
+              [ngClass]="{'is-invalid isInvalid': submitted && loginForm1.controls['mobileNo'].errors}"
+              placeholder="Ex: 0795896314" />
+            <div *ngIf="submitted && loginForm1.controls['mobileNo'].errors || partnerNotPreset" class="text-danger ">
+              <div *ngIf="submitted && loginForm1.controls['mobileNo'].errors?.['required'] || partnerNotPreset"
+                class="text-danger ">
+                Please provide <strong>valid</strong> Mobile Number.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="login-page">
+          <mat-card class="mat-elevation-z12 log-in-card">
+            <mat-card-title style="text-align:center; color: rgb(255, 255, 255); font-size: 80px">
+              <i class="fas fa-user-circle"></i>
+            </mat-card-title>
+            
+            <div class="d-flex justify-content-around">
+              <hr class="line">
+              <hr class="line">
+            </div>
+            <mat-tab-group style="background-color: rgb(255, 255, 255);" class="remove-border-bottom" mat-stretch-tabs mat-align-tabs="center"
+              (selectedTabChange)="loadProvince($event)">
+              <mat-tab aria-label="primary">
+                <ng-template mat-tab-label>
+                  <i class="fa-solid fa-user"></i> &nbsp; Sign In
+                </ng-template>
+                <div>
+                  Login with 
+                  <input type="radio" id="mobilen" name="option" [(ngModel)]="selectedOption" value="Mobile">
+                  <label for="mobile">&nbsp; Mobile</label>
+                  &nbsp; &nbsp; &nbsp; 
+                  <input type="radio" id="emailAddr" name="option" [(ngModel)]="selectedOption" value="Email">
+                  <label for="emailAddr">&nbsp; Email</label>
+                </div>
+                <mat-card-content *ngIf="currentStep === 0" style="background-color: rgb(255, 255, 255);">
+                  
+                  <div *ngIf="selectedOption === 'Mobile'">
+                  <form [formGroup]="loginForm1" (ngSubmit)="nextStep()">
+                    <!-- <mat-form-field>
+                      <input matInput type="text" placeholder="Ex: 895642859V" formControlName="nic" name="nic">
+
+                      <mat-error *ngIf="loginForm.controls['nic'].status=='INVALID' " class="text-danger">Please provide
+                        a <strong>valid</strong> NIC number.
+                      </mat-error>
+                      <mat-icon matSuffix>badge</mat-icon>
+                    </mat-form-field> -->
+                    <mat-form-field style="width: 100%;">
+                      <mat-icon style="font-size: 30px;" matPrefix>phone</mat-icon>
+                      <mat-label>Mobile No</mat-label>
+                      <input matInput placeholder="Ex: 0775896314" type="text" formControlName="mobileNo" name="mobileNo"
+                        style="font-size: 18px;"> <!-- Adjust the font-size value as needed -->
+                      <mat-error *ngIf="loginForm1.controls['mobileNo'].status==='INVALID' ">
+                        Please provide <strong>valid</strong> Mobile Number.
+                      </mat-error>
+                    </mat-form-field>
+                    <div *ngIf="partnerNotPreset"><span class="text-danger"><strong>Invalid</strong> Mobile
+                        Number!</span></div>
+                    <div class="form-item">
+                      <div class="checkbox">
+                        <input type="checkbox" name="" id="rememberMeCheckbox" (change)="saveLoginDetails()"
+                          formControlName="rememberMeCheckbox">
+                        <label for="rememberMeCheckbox" class="checkboxlabel">Remember Me</label>
+                      </div>
+                    </div>
+                    <button class="login-button btn btn-primary">
+                      <i class="fa-solid fa-right-to-bracket"></i> &nbsp; Sign In
+                    </button>
+                    <br>
+                    <!--                      <button-->
+                    <!--                        mat-raised-button-->
+                    <!--                        class="login-button">-->
+                    <!--                        Login with Google-->
+                    <!--                      </button>-->
+                  </form>
+                </div>
+                <div *ngIf="selectedOption === 'Email'">
+                  <form [formGroup]="loginForm2" (ngSubmit)="nextStep()">
+                    <!-- <mat-form-field>
+                      <input matInput type="text" placeholder="Ex: 895642859V" formControlName="nic" name="nic">
+
+                      <mat-error *ngIf="loginForm.controls['nic'].status=='INVALID' " class="text-danger">Please provide
+                        a <strong>valid</strong> NIC number.
+                      </mat-error>
+                      <mat-icon matSuffix>badge</mat-icon>
+                    </mat-form-field> -->
+                    <mat-form-field style="width: 100%;">
+                      <mat-icon style="font-size: 30px;" matPrefix>email</mat-icon>
+                      <mat-label>Email Address</mat-label>
+                      <input matInput placeholder="Ex: user@cat2020.lk" type="text" formControlName="emailAddress" name="emailAddress"
+                        style="font-size: 18px;"> <!-- Adjust the font-size value as needed -->
+                      <mat-error *ngIf="loginForm2.controls['emailAddress'].status==='INVALID' ">
+                        Please provide <strong>valid</strong> Email Address.
+                      </mat-error>
+                    </mat-form-field>
+                    <div *ngIf="partnerNotPreset"><span class="text-danger"><strong>Invalid</strong> Email Address !</span></div>
+                    <div class="form-item">
+                      <div class="checkbox">
+                        <input type="checkbox" name="" id="rememberMeCheckbox" (change)="saveLoginDetails()"
+                          formControlName="rememberMeCheckbox">
+                        <label for="rememberMeCheckbox" class="checkboxlabel">Remember Me</label>
+                      </div>
+                    </div>
+                    <button class="login-button btn btn-primary">
+                      <i class="fa-solid fa-right-to-bracket"></i> &nbsp; Sign In
+                    </button>
+                    <br>
+                    <!--                      <button-->
+                    <!--                        mat-raised-button-->
+                    <!--                        class="login-button">-->
+                    <!--                        Login with Google-->
+                    <!--                      </button>-->
+                  </form>
+                </div>
+                </mat-card-content>
+
+                <div class="otp-outer">
+                  <div class="container" *ngIf="userVerification">
+                    <p>Verify Your Account </p>
+                    <div class="icon-block">
+                      <!--                <img #verify src="https://img.icons8.com/ios/50/2E9AFE/lock-2.png"/>-->
+                      <input id="inpLock2" class="inpLock" type="checkbox" [checked]="isLocked" [disabled]="true">
+                      <label class="btn-lock" [ngClass]="cursor" for="inpLock2" [style.background]="initialColor">
+                        <svg class="lock-icon" width="36" height="40" viewBox="0 0 36 40">
+                          <path class="lockb"
+                            d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z">
+                          </path>
+                          <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21">
+                          </path>
+                          <path class="bling" d="M29 20L31 22"></path>
+                          <path class="bling" d="M31.5 15H34.5"></path>
+                          <path class="bling" d="M29 10L31 8"></path>
+                        </svg>
+
+                      </label>
+                    </div>
+                    <h4 class="text-muted">Please enter the 6 digit OTP sent to
+                      the
+                      <strong>{{ CryptoJS.AES.decrypt(sessionStorage.getItem("partnerMobileNo") ?? "",
+                        environment.KEY).toString(CryptoJS.enc.Utf8)}}</strong>
+                         <strong>{{ CryptoJS.AES.decrypt(sessionStorage.getItem("partnerEmailAddress") ?? "",
+                          environment.KEY).toString(CryptoJS.enc.Utf8)}}</strong>
+                    </h4>
+                    <form class="login-form" class="otp-form" action="#">
+                      <div class="input-field">
+                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="configOptions"></ng-otp-input>
+                        <!--                  <div *ngIf="verify.style.color === 'red'" class="text-danger pt-2">Please provide valid OTP.</div>-->
+                        <div class="mt-4"><span class="text-muted">Don't receive the OTP? </span>
+                          <a href="#" (click)="resendOTP()"><span *ngIf="!countStatus"
+                              (click)="isPartnerAvailable()">Resend code </span>
+                            <span *ngIf="countStatus">Try again in <countdown #cd [config]="counterConfiguration"
+                                (event)="handleCountDown($event)"></countdown></span> </a>
+                        </div>
+
+                        <button class="btn btn-lg w-100 mt-3 mb-4 py-3" [ngClass]="btnStatus">{{ this.inputDigitLeft
+                          }}</button>
+
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+              </mat-tab>
+              <!--                +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+              <mat-tab aria-label="primary">
+                <ng-template mat-tab-label>
+                  <i class="fa-solid fa-user-plus"></i> &nbsp; Sign Up
+                </ng-template>
+                <mat-card-content *ngIf="!mobileVerification">
+                  <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp(signUpForm)">
+
+                    <!--                      User Name-->
+                    <mat-form-field>
+                      <mat-label>Name</mat-label>
+                      <input matInput placeholder="Name" formControlName="username">
+                      <mat-icon matSuffix>perm_identity</mat-icon>
+                      <mat-error *ngIf="signUpForm.get('username')?.hasError('required')">Username is required
+                      </mat-error>
+                    </mat-form-field>
+
+                    <!--                      Email-->
+                    <mat-form-field>
+                      <mat-label>Email Address</mat-label>
+                      <input matInput placeholder="Email" formControlName="email">
+                      <mat-icon matSuffix>email</mat-icon>
+                      <mat-error *ngIf="signUpForm.get('email')?.hasError('email')">Invalid email address</mat-error>
+                      <!-- <mat-error *ngIf="signUpForm.get('email')?.hasError('required')">Email is required</mat-error> -->
+                    </mat-form-field>
+
+                    <!--                      Mobile No-->
+                    <mat-form-field>
+                      <mat-label>Mobile Number</mat-label>
+                      <input matInput placeholder="Mobile Number" type="text" [(ngModel)]="mobile" formControlName="phone">
+                      <mat-error *ngIf="signUpForm.get('phone')?.hasError('required')">Mobile Number is required</mat-error>
+                      <mat-error *ngIf="isPhoneExist">The phone number you've enter already exists with another
+                        account</mat-error>
+                      <mat-icon matSuffix>phone</mat-icon>
+                    </mat-form-field>
+
+                    <!--                      NIC-->
+                    <mat-form-field>
+                      <mat-label>NIC Number</mat-label>
+                      <input matInput placeholder="NIC Number" type="text" [(ngModel)]="nic" formControlName="nic">
+                      <mat-error *ngIf="signUpForm.get('nic')?.hasError('required')">NIC is required</mat-error>
+                      <mat-error *ngIf="isNICExist">The NIC number you've enter already exists with another
+                        account</mat-error>
+                      <mat-icon matSuffix>badge</mat-icon>
+                    </mat-form-field>
+
+                    <div class="row">
+                      <!--                      province-->
+                      <mat-form-field class="col-lg-12">
+                        <mat-label>Province</mat-label>
+                        <mat-select placeholder="Select Province" formControlName="province" name="province"
+                          (selectionChange)="onProvinceSelectionChange($event)">
+                          <mat-option *ngFor="let province of province" [value]="province.id">
+                            {{province.nameEnglish}}
+                          </mat-option>
+
+                          <mat-option></mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="signUpForm.get('province')?.hasError('required')">District is required
+                        </mat-error>
+                      </mat-form-field>
+
+                      <!--                    Sabha-->
+                      <mat-form-field class="col-lg-12">
+                        <mat-label>Local Authority</mat-label>
+                        <mat-select placeholder="Select Local Authority" formControlName="localAuthority"
+                          (selectionChange)="onSabhaSelectionChange($event)">
+                          <mat-option *ngFor="let sabha of sabha" [value]="sabha.id">
+                            {{sabha.nameEnglish}}
+                          </mat-option>
+
+                          <mat-option></mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="signUpForm.get('localAuthority')?.hasError('required')">Local Authority is
+                          required
+                        </mat-error>
+                      </mat-form-field>
+
+                      <!--                    GnDivision-->
+                      <mat-form-field class="col-lg-12">
+                        <mat-label>GN Division</mat-label>
+                        <mat-select placeholder="GN Division" formControlName="gnDivision"
+                          (selectionChange)="onGnDivisionChange($event)">
+                          <mat-option *ngFor="let gnDivision of gnDivision" [value]="gnDivision">
+                            {{gnDivision.description}}
+                          </mat-option>
+
+                          <mat-option></mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="signUpForm.get('gnDivision')?.hasError('required')">GN Division is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <!--                      Address Lane 1-->
+                      <mat-form-field class="col-lg-12">
+                        <mat-label>Address Line 1</mat-label>
+                        <input matInput placeholder="Address Line 1" type="text" formControlName="addressLine1">
+                        <mat-error *ngIf="signUpForm.get('addressLine1')?.hasError('required')">Address Line 1 is
+                          required
+                        </mat-error>
+                        <mat-icon matSuffix>sort</mat-icon>
+                      </mat-form-field>
+                      <!--                      Address Lane 1-->
+                      <mat-form-field class="col-lg-12">
+                        <mat-label>Address Line 2</mat-label>
+                        <input matInput placeholder="Address Line 2" type="text" formControlName="addressLine2">
+                        <mat-icon matSuffix>sort</mat-icon>
+                      </mat-form-field>
+                    <!-- </div>
+
+                    <div class="row"> -->
+                      <!--                        City-->
+                      <mat-form-field class="col-lg-6">
+                        <mat-label>City</mat-label>
+                        <input matInput placeholder="City" type="text" formControlName="city">
+                        <mat-icon matSuffix>sort</mat-icon>
+                      </mat-form-field>
+                      <!--                        Zip-->
+                      <mat-form-field class="col-lg-6">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput placeholder="Postal Code" type="text" formControlName="zip">
+                        <mat-icon matSuffix>tag</mat-icon>
+                      </mat-form-field>
+
+
+                    </div>
+                    <button (submit)="onSubmitSignUp" class="login-button btn btn-primary">
+                      <i class="fa-solid fa-user-plus"></i> &nbsp; Sign Up
+                    </button>
+                    <mat-error *ngIf="isPhoneExist">The user already exist</mat-error>
+                  </form>
+                </mat-card-content>
+
+                <div class="otp-outer">
+                  <div class="container" *ngIf="mobileVerification">
+                    <p>Verify Your phone! </p>
+                    <div class="icon-block">
+                      <!--                <img #verify src="https://img.icons8.com/ios/50/2E9AFE/lock-2.png"/>-->
+                      <input id="inpLock1" class="inpLock" type="checkbox" [checked]="isLocked" [disabled]="true">
+                      <label class="btn-lock" [ngClass]="cursor" for="inpLock1" [style.background]="initialColor">
+                        <svg class="lock-icon" width="36" height="40" viewBox="0 0 36 40">
+                          <path class="lockb"
+                            d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z">
+                          </path>
+                          <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21">
+                          </path>
+                          <path class="bling" d="M29 20L31 22"></path>
+                          <path class="bling" d="M31.5 15H34.5"></path>
+                          <path class="bling" d="M29 10L31 8"></path>
+                        </svg>
+
+                      </label>
+                    </div>
+                    <h4 class="text-muted">Please enter the 6 digit verification code</h4>
+                    <form class="login-form" class="otp-form" action="#">
+                      <div class="input-field">
+                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="configOptions"></ng-otp-input>
+                        <!--                  <div *ngIf="verify.style.color === 'red'" class="text-danger pt-2">Please provide valid OTP.</div>-->
+                        <div class="mt-4"><span class="text-muted">Don't receive the OTP? </span>
+                          <a href="#" (click)="resendOTP()"><span *ngIf="!countStatus"
+                              (click)="isPartnerAvailable()">Resend code </span>
+                            <span *ngIf="countStatus">Try again in <countdown #cd [config]="counterConfiguration"
+                                (event)="handleCountDown($event)"></countdown></span> </a>
+                        </div>
+
+                        <button class="btn btn-lg w-100 mt-3 mb-4 py-3" [ngClass]="btnStatus">{{ this.inputDigitLeft
+                          }}</button>
+
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card>
+        </div>
+
+
+
+
+
+
+
+        <!--          <div class="d-flex navigation justify-content-between gap-1">-->
+        <!--            <button *ngIf="currentStep === 5" (click)="prevStep()">&#8592; Back</button>-->
+        <!--            <button *ngIf="currentStep === 0"-->
+        <!--                    type="submit"> {{ currentStep === steps.length - 1 ? 'Verify' : 'LogIn' }} </button>-->
+        <!--          </div>-->
+
+
+        <!--        </form>-->
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

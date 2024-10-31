@@ -1,0 +1,196 @@
+/*.due-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 15px 15px;
+}
+
+.due-card {
+  width: 80%;
+  max-width: 600px;
+}
+
+.due-header {
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  text-align: center;
+
+  h1, h2 {
+    margin: 0;
+  }
+
+  .info {
+    margin-top: 10px;
+  }
+
+  button {
+    background-color: white;
+    color: #007bff;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    margin-top: 10px;
+    width: 200px;
+    border: radius 1rem;
+
+  }
+
+  button:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.note {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.due-details, .due-summary {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+
+  p {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 5px 5px;
+    color: black;
+
+  }
+
+
+  strong {
+    flex: 1;
+  }
+
+  span {
+    margin-left: 50px;
+    flex: 1;
+    text-align: left;
+  }
+
+
+  .status-connected {
+    color: green;
+  }
+  
+}
+*/
+
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+
+  .mat-table {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+      display: table;
+      border-collapse: collapse;
+      margin: 0px;
+  }
+
+  .mat-row,
+  .mat-header-row {
+      font-weight: bold;
+      display: table-row;
+
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+      font-weight: bold;
+      word-wrap: initial;
+      display: table-cell;
+      padding: 0px 5px;
+      line-break: unset;
+      width: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      vertical-align: middle;
+  }
+
+
+}
+
+tr {
+  font-size: medium;
+  padding: 0;
+  margin: 0;
+}
+
+.validation {
+  color: red;
+}
+
+.input-container {
+  position: relative;
+}
+
+.clicked input {
+  border-bottom: 2px solid blue;
+  /* You can use your preferred color here */
+  transition: border-bottom 0.3s ease;
+  /* Add a transition for a smooth effect */
+}
+
+th{
+  font-weight: bold;
+
+}
+
+.div1 {
+  width: 100%;
+  // height: 225px;
+  height: auto;
+  border: 2px solid rgb(23, 23, 24);
+
+}
+
+.margin{
+  margin: 8px;
+}
+.backgroundcolor{
+  background-color: #E1F8DC;
+}
+
+hr{
+  line-height: 5px;
+  // line-color: black !important;
+}
+
+.example-radio-group {
+display: flex;
+flex-direction: column;
+margin: 15px 0;
+align-items: flex-start;
+}
+
+.example-radio-button {
+margin: 5px;
+}
+button{
+  background-color: #09b837;
+  border-radius: 10px;
+
+}
+
+button:hover{
+  background-color: #05910e;
+  color: white;
+}
+.equal-height {
+  display: flex;
+  flex-direction: column;
+}
+
+.equal-height .card-body {
+  flex-grow: 1;
+}

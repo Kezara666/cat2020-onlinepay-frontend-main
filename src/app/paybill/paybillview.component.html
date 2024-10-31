@@ -1,0 +1,229 @@
+<!--
+<div class="due-container">
+    <mat-card class="due-card">
+      <div class="due-header">
+        <h2>Your Due Amount</h2>
+        <h1>Rs. 7,692.59</h1>
+        <p>Last Payment 27 Jun 2024</p>
+        <button mat-raised-button color="primary">Pay</button>
+        <p class="info">Here info as at 19 Jul 2024 15:08</p>
+      </div>
+      <mat-divider></mat-divider>
+      <p class="note">Note: Full or Partial Payments Accepted</p>
+      <div class="due-details">
+        <p><strong>Name</strong>:<span> G H A, CHAMINDA</span></p>
+        <p><strong>Nic</strong>: <span>200029700363</span></p>
+        <p><strong>Connection ID</strong>:<span> 10/38/164/164/18</span></p>
+        <p><strong>Project</strong>: <span class="status-connected">Connected</span></p>
+        <p><strong>Main Road</strong>: <span class="status-connected">Connected</span></p>
+        <p><strong>Sub Road</strong>: <span class="status-connected">Connected</span></p>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="due-summary">
+        <p><strong>Last Yaer Arreas</strong>: <span>3,968.72</span></p>
+        <p><strong>This Year Arreas</strong>: <span>3,723.87</span></p>
+        <p><strong>currenrt balance </strong>: <span>7,692.59</span></p>
+        <p><strong>Payments (Pending)</strong>: <span>-0.00</span></p>
+        <p><strong>Total Amount</strong>: <span>7,692.59</span></p>
+      </div>
+    </mat-card>
+  </div>-->
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <br>
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-4">
+          <button appPreventDoubleClick type="submit" class="btn btn-warning" (click)="backToCashierView()">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="card card-primary mb-5">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Water Bill Payment</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="paymentForm" novalidate></form>
+
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="card bg-teal-100 equal-height">
+                  <div class="card-body">
+                    <h5 class="card-title" style="font-size: 20px; font-weight: bold;">Connection Information</h5>
+                    <table class="table table-borderless" id="table-borderless">
+                      <colgroup>
+                        <col style="width: 45%;">
+                        <col style="width: 55%;">
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <td class="pl-3 ">Connection No</td>
+                          <td style="text-align: right;" class="pr-2">{{ paymentForm.get('connectionNo').value }}</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="font-weight-bold pl-3">ConnectionId</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('connectionId').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">NIC</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('nic').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Customer Name</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('customerName').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Project</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('project').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Main Road</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('mainRoad').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Sub Road</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('subRoad').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Nature</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('nature').value }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6">
+                <div class="card equal-height" >
+                  <div class="card-body">
+                    <h5 class="card-title " style="font-size: 20px; font-weight: bold;" >Last Bill Information</h5>
+                    <table class="table table-borderless " id="table-borderless-2">
+                      <colgroup>
+                        <col style="width: 45%;">
+                        <col style="width: 55%;">
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <td class="pl-3">Bar Code</td>
+                          <td style="text-align: right; font: bold;" class="pr-2">{{ paymentForm.get('barcodeNo').value }}</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Bill Month</td>
+                          <td style="text-align: right; font: bold;"  class="pr-2">{{ paymentForm.get('billMonth').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Pre. Meter Reading</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('previousMeterReading').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Cur. Meter Reading</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('currentMeterReading').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Consumption</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('consumption').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Water Charge</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('thisMonthCharge').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">Fixed Charge</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('fixedCharge').value }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold pl-3">VAT</td>
+                          <td style="text-align: right;"  class="pr-2">{{ paymentForm.get('vatAmount').value }}</td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 20px; color: green; font: bold;" class=" pl-3">Total Due</td>
+                          <td style="text-align: right; font-size: 20px ; color: green; font: bold "  class="pr-2">{{ paymentForm.get('totalAmountDue').value }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4 mx-2">
+              <table class="table table-hover text-center "  id="meter_reading">
+                <thead class="bg-light pl-3" >
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Barcode No</th>
+                    <th scope="col">Month</th>
+                    <th scope="col">Consumption</th>
+                    <th scope="col">Meter Reading</th>
+                    <th scope="col">Due Amount</th>
+                    <th scope="col">Paying Amount</th>
+                    <th scope="col">Next Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let b of balances; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                      <span class ="pl-3">
+                        <ng-container *ngIf="b.isCompleted; else TimesCircle">
+                          <i class="fas fa-check-circle text-success fa-lg"></i>
+                        </ng-container>
+                        <ng-template #TimesCircle>
+                          <i class="fas fa-times-circle text-danger fa-lg"></i>
+                        </ng-template>
+                      </span>
+                    </td>
+                    <td>{{ b.barCode }}</td>
+                    <td>{{ b.year + '-' + b.month }}</td>
+                    <td>{{ calculateConsumption(b) }}</td>
+                    <td>{{ b.thisMonthMeterReading }}</td>
+                    <td>{{ b.payable }}</td>
+                    <td>{{ b.payingAmount }}</td>
+                    <td>{{ getBalance(b) }}</td>
+                 
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row justify-content-center ">
+              <div class="col-12 col-md-6 col-lg-4 ">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Payment</mat-label>
+                  <input matInput type="number" placeholder="Ex. 100" [(ngModel)]="inputTotal"
+                    (ngModelChange)="onEnterPaymentAmount($event)" (keyup.enter)="onEnterPaymentAmount($event)" appearance="fill" required [min]="0">
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4  align-items-center">
+                <button style="margin: 0;padding: 0; width: 80% ; height: 70%;" 
+                [disabled]="inputTotal === 0 || inputTotal == undefined"
+                
+                appPreventDoubleClick (click)="closeSection(inputTotal)">Pay</button>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

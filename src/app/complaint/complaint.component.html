@@ -1,0 +1,70 @@
+<br>
+
+
+<div class="container-md">
+  <div class="row">
+    <div class="col-12 mb-3 mb-lg-5">
+      <div class="position-relative card table-nowrap table-card">
+        <div class="card-header align-items-center">
+          <h3 class="mb-0">Latest Complaints</h3>
+          <!--          <p class="mb-0 small text-muted">1 Pending</p>-->
+        </div>
+        <div class="table-responsive">
+
+          <mat-table id="c-table" [dataSource]="complainDataSource" class="mat-elevation-z8 ">
+
+            <!-- Column definitions for Step 2 -->
+            <ng-container matColumnDef="column1">
+              <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>COMPLAINT ID</b>
+              </mat-header-cell>
+              <mat-cell mat-cell class="mat-cell" data-label="Assessment No"
+                        *matCellDef="let element">DID#{{ element.dispute?.id}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="column2">
+              <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>TRANSACTION ID</b>
+              </mat-header-cell>
+              <mat-cell class="mat-cell pr-3" data-label="Annual Amount" mat-cell
+                        *matCellDef="let element">{{element.transactionId}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="column3">
+              <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>DATE</b>
+              </mat-header-cell>
+              <mat-cell class="mat-cell pr-3" data-label="Annual Amount" mat-cell
+                        *matCellDef="let element">{{element.dispute?.createdAt  | date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="column4">
+              <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>REASON</b>
+              </mat-header-cell>
+              <mat-cell mat-cell class="mat-cell" data-label="Property Type" *matCellDef="let element">
+                Payment Failed</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="column5">
+              <mat-header-cell mat-header-cell class="mat-header-cell" *matHeaderCellDef><b>STATUS</b></mat-header-cell>
+              <mat-cell class="mat-cell pr-3" data-label="Status" mat-cell *matCellDef="let element"
+                        [ngClass]="{'success-text': (element.dispute?.userId != null && element.error === 0), 'pending-text': element.status === 0 && element.error === 1}">
+                {{ (element.dispute?.userId != null && element.error === 0) ? 'Resolved'  : (element.status === 0 && element.error === 1) ? 'Pending' : '' }}
+              </mat-cell>
+            </ng-container>
+
+
+            Row content for Step 2
+            <mat-header-row mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+            <mat-row mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+          </mat-table>
+
+          <div class="card-footer text-end">
+            <button class="btn btn-gray" (click)="updatePageNumberSize()">View More</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>

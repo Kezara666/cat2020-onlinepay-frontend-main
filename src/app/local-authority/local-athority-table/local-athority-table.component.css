@@ -1,0 +1,14 @@
+.table-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Ensure the container takes the full height of the mat-step */
+  }
+  .green-select-button {
+    background-color: #4caf50; /* Green color */
+    color: white; /* Text color, you can adjust this based on your preference */
+  }
+  
+  .green-select-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }

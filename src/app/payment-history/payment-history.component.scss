@@ -1,0 +1,44 @@
+//mat-table {
+//  margin-top: 20px;
+//  background: #FFF5EE;
+//}
+
+.card {
+  box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+
+.avatar.sm {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: .818125rem;
+}
+
+.table-nowrap .table td,
+.table-nowrap .table th {
+  white-space: nowrap;
+}
+
+.table>:not(caption)>*>* {
+  padding: 0.75rem 1.25rem;
+  border-bottom-width: 1px;
+}
+
+mat-header-cell {
+  font-weight: 600;
+  background-color: #eeecfd !important;
+}
+
+.success-text {
+  color: green;
+}
+
+.pending-text {
+  color: red;
+}
+
+@media (max-width: 768px) {
+
+  #c-table * {
+    font-size: 7px;
+  }
+}

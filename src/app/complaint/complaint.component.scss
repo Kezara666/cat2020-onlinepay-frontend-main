@@ -1,0 +1,14 @@
+.success-text {
+  color: green;
+}
+
+.pending-text {
+  color: red;
+}
+
+@media (max-width: 768px) {
+
+  #c-table *{
+    font-size: 7px;
+  }
+}

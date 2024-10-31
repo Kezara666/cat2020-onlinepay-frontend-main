@@ -1,0 +1,20 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-water-bill-table',
+  templateUrl: './water-bill-table.component.html',
+  styleUrls: ['./water-bill-table.component.css']
+})
+export class WaterBillTableComponent {
+  displayedColumnsStep2: string[] = ['column1', 'column2', 'column3', 'pay'];
+
+
+  datasource = [
+    { columnX: 'Value 5', columnY: 'Value 6', columnZ: 'Value 7', columnW: 'Value 8' },
+    // Add more rows as needed
+  ];
+  onPay(){
+    
+  }
+
+}

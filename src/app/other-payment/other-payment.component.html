@@ -1,0 +1,128 @@
+<div class="">
+  <div class="card card-info">
+    <div class="card-header">
+      <h3 class="card-title">Other Payments</h3>
+
+
+      <!--    <div class="card-tools">-->
+      <!--      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">-->
+      <!--        <i class="fas fa-minus"></i>-->
+      <!--      </button>-->
+      <!--    </div>-->
+    </div>
+
+
+    <div class="card-body">
+      <form [formGroup]="otherForm" (ngSubmit)="onSubmitOther(otherForm)">
+
+        <div class="row">
+
+          <mat-form-field class="col-lg-3">
+            <mat-select placeholder="Select Province" formControlName="district" name="district"
+                        (selectionChange)="onDistrictSelectionChange($event)">
+              <mat-option *ngFor="let district of district" [value]="district.id">
+                {{district.nameEnglish}}
+              </mat-option>
+
+              <mat-option></mat-option>
+            </mat-select>
+            <mat-error *ngIf="otherForm.get('province')?.hasError('required')">District is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-lg-3">
+            <mat-select placeholder="Select Local Authority" formControlName="localAuthority"
+                        (selectionChange)="onSabhaSelectionChange($event)">
+              <mat-option *ngFor="let sabha of sabhaList" [value]="sabha">
+                {{sabha.nameEnglish}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="otherForm.get('localAuthority')?.hasError('required')">Local Authority is
+              required
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field class="col-lg-3">
+            <mat-select placeholder="Select Office" formControlName="office"
+                        (selectionChange)="onOfficeChange($event)">
+              <mat-option *ngFor="let office of officeList" [value]="office.id">
+                {{office.nameEnglish}}
+              </mat-option>
+
+              <mat-option></mat-option>
+            </mat-select>
+            <mat-error *ngIf="otherForm.get('office')?.hasError('required')">Office is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-lg-3">
+            <mat-select placeholder="Select Service" formControlName="services"
+                        (selectionChange)="onServiceSelectionChange($event)">
+              <mat-option *ngFor="let service of service" [value]="service.description">
+                {{service.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="otherForm.get('services')?.hasError('required')">Service is
+              required
+            </mat-error>
+          </mat-form-field>
+
+
+        </div>
+
+        <div class="row">
+          <mat-form-field class="col-lg-3">
+            <input matInput placeholder="Reference No" type="text" formControlName="reference">
+            <mat-error *ngIf="otherForm.get('reference')?.hasError('required')">Reference No is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-lg-9">
+            <textarea cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" matInput [(ngModel)]="noteText" (keyup)="note($event)"
+                      placeholder="Request Note" type="text" formControlName="note"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="">
+          <mat-form-field class="col-lg-4">
+            <mat-label>Amount</mat-label>
+            <input #inputAmount matInput required formControlName="amount"
+                   (keyup)="onTotalChange($event)" type="number" (wheel)="onWheel($event)">
+
+            <mat-error *ngIf="otherForm.hasError('required')">
+              Amount is <strong>required</strong>
+            </mat-error>
+
+          </mat-form-field>
+        </div>
+
+
+          <div class=" col-lg-4 d-flex justify-content-between pt-2 "  *ngIf="inputTotal > 0">
+            <div class="font-weight-bold pl-3 text-danger"><b>Bank charges</b></div>
+            <div class="font-weight-bold pl-3 text-danger"><b> LKR +{{newServiceCharges}}</b></div>
+          </div>
+
+
+          <div *ngIf="inputTotal > 0" class="col-lg-4 d-flex justify-content-between pt-2 pb-2">
+            <div class="font-weight-bold pl-3 text-success"><b>Total</b></div>
+            <div class="font-weight-bold pr-2 text-success">
+              <b>LKR {{grandTotal| number:'1.2-2'}}</b></div>
+          </div>
+
+        <div class="">
+
+          <button class="btn btn-success pay-button  col-lg-4  text-light "
+                  (click)="closeSection(inputTotal)"
+                  [disabled]="inputTotal== 0 || inputTotal==undefined || serviceCharges==undefined"
+          ><i class="fa-solid fa-money-check"></i>
+            Pay now
+
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>

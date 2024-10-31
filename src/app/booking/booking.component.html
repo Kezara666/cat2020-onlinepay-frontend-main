@@ -1,0 +1,84 @@
+<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+  <!-- Property Type Selection -->
+  <div>
+    <label for="sabhaType" style="color: black;">Local Authority</label>
+    <mat-form-field appearance="fill">
+      <mat-label>Local Authority</mat-label>
+      <mat-select id="sabhaType" formControlName="sabhaType" (selectionChange)="onSabhaTypeChange($event.value)">
+        <mat-option *ngFor="let type of sabhaType" [value]="type.id">{{ type.addressEnglish + "(" + type.nameSinhala +
+          ")"}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Property Type Selection -->
+  <div>
+    <label for="propertyType" style="color: black;">Property Type:</label>
+    <mat-form-field appearance="fill">
+      <mat-label>Property Type</mat-label>
+      <mat-select id="propertyType" formControlName="propertyType"
+        (selectionChange)="onPropertyTypeChange($event.value)">
+        <mat-option *ngFor="let type of propertyTypes" [value]="type.id">{{ type.propertyName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Sub Type Selection -->
+  <div>
+    <label for="subType" style="color: black;">Sub Property:</label>
+    <mat-form-field appearance="fill">
+      <mat-label>Sub Property </mat-label>
+      <mat-select id="subType" formControlName="subType" (selectionChange)="onSubPropertyTypeChange($event.value)">
+        <mat-option *ngFor="let subtype of subTypeOptions" [value]="subtype.id">{{
+          subtype.subPropertyName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Start Date and Time -->
+  <div>
+    <label for="startDate" style="color: black;">Start Date:</label>
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker1" id="startDate" formControlName="startDate"
+        (dateChange)="calculateCharge()">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+
+  <!-- End Date and Time -->
+  <div>
+    <label for="endDate" style="color: black;">End Date:</label>
+    <mat-form-field appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="picker2" id="endDate" formControlName="endDate" (dateChange)="calculateCharge()">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <!-- Options Dropdown -->
+  <div class="options-dropdown">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Options</mat-label>
+      <mat-select formControlName="selectedOptions" multiple (selectionChange)="onSelectionChange($event)">
+        <!-- Grouped options by date -->
+        <mat-optgroup *ngFor="let dateOption of dateOptions" [label]="dateOption.date">
+          <mat-option *ngFor="let option of dateOption.timeSlots" [value]="{ date: dateOption.date, option: option}">
+            {{ dateOption.date }} - From {{ option.from }} To {{ option.to }}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Charge Amount -->
+  <div>
+    <label for="chargeAmount">Charge Amount:</label>
+    <input id="chargeAmount" formControlName="chargeAmount" readonly>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" mat-raised-button color="primary">Request Booking</button>
+</form>
